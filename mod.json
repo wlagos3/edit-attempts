@@ -1,8 +1,10 @@
 {
-  "geode": "4.0.1",
+  "geode": "4.10.2",
   "gd": {
     "win": "2.2074",
-    "mac": "2.2074"
+    "mac": "2.2074",
+    "ios": "2.2074",
+    "android": "2.2074"
   },
   "id": "zsa.edit-attempts",
   "name": "Edit Attempts",
@@ -12,11 +14,7 @@
   "resources": {
     "sprites": ["resources/editAttemptsButton.png"]
   },
-  "dependencies": [
-    {
-      "id": "geode.node-ids",
-      "version": "1.17.0",
-      "importance": "required"
-    }
-  ]
+  "dependencies": {
+    "geode.node-ids": ">=1.17.0"
+  }
 }

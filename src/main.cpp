@@ -32,38 +32,32 @@ class ModifyAttemptCountPopup : public geode::Popup<GJGameLevel*> {
         }
         void onSetButtonClick(CCObject* sender){
             if(inputNode->getString().empty()){return;}
-            try {
-                int val = std::stoi(inputNode->getString());
+            int val = geode::numFromString<int>(inputNode->getString()).unwrapOr(-1);
+            if (val > -1) {
                 setAttempts(val);
-                this->removeMeAndCleanup();
-            } catch (const std::invalid_argument& e) {
-                log::warn("Input is not a valid integer");
-            } catch (const std::out_of_range& e) {
-                log::warn("Input is out of range");
+                this->onClose(nullptr);
+            } else {
+                geode::Notification::create("Input is not a valid number", NotificationIcon::Error, 2.f)->show();
             }
         }
         void onPlusButtonClick(CCObject* sender){
             if(inputNode->getString().empty()){return;}
-            try {
-                int val = std::stoi(inputNode->getString());
+            int val = geode::numFromString<int>(inputNode->getString()).unwrapOr(-1);
+            if (val > -1) {
                 addAttempts(val);
-                this->removeMeAndCleanup();
-            } catch (const std::invalid_argument& e) {
-                log::warn("Input is not a valid integer");
-            } catch (const std::out_of_range& e) {
-                log::warn("Input is out of range");
+                this->onClose(nullptr);
+            } else {
+                geode::Notification::create("Input is not a valid number", NotificationIcon::Error, 2.f)->show();
             }
         }
         void onMinusButtonClick(CCObject* sender){
             if(inputNode->getString().empty()){return;}
-            try {
-                int val = std::stoi(inputNode->getString());
+            int val = geode::numFromString<int>(inputNode->getString()).unwrapOr(-1);
+            if (val > -1) {
                 subtractAttempts(val);
-                this->removeMeAndCleanup();
-            } catch (const std::invalid_argument& e) {
-                log::warn("Input is not a valid integer");
-            } catch (const std::out_of_range& e) {
-                log::warn("Input is out of range");
+                this->onClose(nullptr);
+            } else {
+                geode::Notification::create("Input is not a valid number", NotificationIcon::Error, 2.f)->show();
             }
         }
         bool setup(GJGameLevel* level) override {
@@ -75,8 +69,8 @@ class ModifyAttemptCountPopup : public geode::Popup<GJGameLevel*> {
             auto menu = CCMenu::create();
 
             auto input = CCTextInputNode::create(100, 100, "Attempts", "bigFont.fnt");
-                       input->setScale(0.75);
-            input->setPosition(CCPoint(272.5, 170 ));
+            input->setScale(0.75);
+            input->setPosition(CCPoint(this->m_mainLayer->getContentWidth() / 2.f, 170 ));
             input->setAllowedChars("0123456789");
             inputNode = input;
 
